@@ -1,0 +1,17 @@
+execute pathogen#infect()
+syntax on
+filetype plugin indent on
+let g:solarized_termcolors = 256
+set background=dark
+set encoding=utf-8
+set number
+map <C-n> :NERDTreeToggle<CR>
+au BufNewFile,BufRead *.py
+    \ set tabstop=4 |
+    \ set softtabstop=4 |
+    \ set shiftwidth=4 |
+    \ set textwidth=79 |
+    \ set expandtab |
+    \ set autoindent |
+    \ set fileformat=unix |
+
