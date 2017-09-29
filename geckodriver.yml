@@ -1,9 +1,0 @@
----
-- hosts: all
-  become: true
-  tasks:
-    - name: unpack geckodriver
-      unarchive:
-        src: https://github.com/mozilla/geckodriver/releases/download/v0.16.1/geckodriver-v0.16.1-linux64.tar.gz
-        desc: /home/ubuntu/.local/bin
-        remote_src: True
