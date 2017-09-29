@@ -1,0 +1,42 @@
+---
+- hosts: all
+  become: true
+  tasks:
+  - name: vim config
+    file:
+      owner: ubuntu
+      path: /home/ubuntu/.vimrc
+      mode: 0644
+      state: touch
+  - name: inputrc
+    lineinfile:
+      owner: ubuntu
+      path: /home/ubuntu/.inputrc
+      line: 'set editing-mode vi'
+      create: yes
+  - name: vim directories
+    file:
+      owner: ubuntu
+      path: "/home/ubuntu/.vim/{{item}}"
+      state: directory
+      mode: 0755
+    with_items:
+      - bundle
+      - autoload
+  - name: install git
+    apt: name=git state=latest
+  - name: install vundle
+    git:
+      repo: https://github.com/gmarik/Vundle.vim.git
+      dest: /home/ubuntu/.vim/bundle/Vundle.vim
+  - name: extra vim config
+    blockinfile:
+      path: /home/ubuntu/.vimrc
+      marker: "\" {mark} from playbook"
+      block:  "{{ lookup('file', '/vagrant/vimrc') }}"
+  - name: install pip3
+    apt: name=python3-pip state=latest
+  - name: install virtualenv
+    apt: name=virtualenv state=latest
+  - name: install sqlite
+    apt: name=sqlite3 state=latest
