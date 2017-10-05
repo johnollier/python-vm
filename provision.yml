@@ -34,9 +34,25 @@
       path: /home/ubuntu/.vimrc
       marker: "\" {mark} from playbook"
       block:  "{{ lookup('file', '/vagrant/vimrc') }}"
-  - name: install pip3
-    apt: name=python3-pip state=latest
-  - name: install virtualenv
-    apt: name=virtualenv state=latest
+  - name: install pip virtualenv etc
+    apt:
+      name='{{item}}' state=latest
+    with_items:
+      - python-pip
+      - python3-pip
+      - virtualenv
+      - virtualenvwrapper
+  - name: virtualenv config for bash-profile
+    blockinfile:
+      path: /home/ubuntu/.bash-profile
+      marker: "\" {mark} from playbook"
+      block:  "{{ lookup('file', '/vagrant/bash-profile') }}"
+  - name: python testing packages
+    pip:
+      name: "{{item}}"
+      executable: pip3
+    with_items:
+      - pytest
+      - ptvsd
   - name: install sqlite
     apt: name=sqlite3 state=latest
