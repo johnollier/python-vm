@@ -44,6 +44,7 @@
       - virtualenvwrapper
   - name: virtualenv config for bash-profile
     blockinfile:
+      create: true
       path: /home/ubuntu/.bash-profile
       marker: "\" {mark} from playbook"
       block:  "{{ lookup('file', '/vagrant/bash-profile') }}"
@@ -56,3 +57,20 @@
       - ptvsd
   - name: install sqlite
     apt: name=sqlite3 state=latest
+  - name: docker dependencies
+    apt:
+      name='{{item}}' state=latest
+    with_items:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - software-properties-common
+  - name: ensure repository key is installed
+    apt_key:
+      url: https://download.docker.com/linux/ubuntu/gpg
+  - name: ensure docker registry is available
+    apt_repository:
+      repo: "deb https://download.docker.com/linux/ubuntu xenial stable"
+      state:  present
+  - name: ensure docker and dependencies are installed
+    apt: name='docker-ce' update_cache=yes
