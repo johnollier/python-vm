@@ -74,3 +74,13 @@
       state:  present
   - name: ensure docker and dependencies are installed
     apt: name='docker-ce' update_cache=yes
+  - name: install postgres
+    apt:
+      name: "{{item}}"
+      update_cache: yes
+    with_items:
+      - postgresql
+      - postgresql-contrib
+  - name: install nginx
+    apt: name='nginx' update_cache=yes
+    
