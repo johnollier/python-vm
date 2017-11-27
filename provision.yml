@@ -1,86 +1,16 @@
 ---
 - hosts: all
   become: true
+  roles:
+    - vim
+    - python
   tasks:
-  - name: vim config
-    file:
-      owner: ubuntu
-      path: /home/ubuntu/.vimrc
-      mode: 0644
-      state: touch
-  - name: inputrc
-    lineinfile:
-      owner: ubuntu
-      path: /home/ubuntu/.inputrc
-      line: 'set editing-mode vi'
-      create: yes
-  - name: vim directories
-    file:
-      owner: ubuntu
-      path: "/home/ubuntu/.vim/{{item}}"
-      state: directory
-      mode: 0755
-    with_items:
-      - bundle
-      - autoload
-  - name: install git
-    apt: name=git state=latest
-  - name: install vundle
-    git:
-      repo: https://github.com/gmarik/Vundle.vim.git
-      dest: /home/ubuntu/.vim/bundle/Vundle.vim
-  - name: extra vim config
-    blockinfile:
-      path: /home/ubuntu/.vimrc
-      marker: "\" {mark} from playbook"
-      block:  "{{ lookup('file', '/vagrant/vimrc') }}"
-  - name: install pip virtualenv etc
-    apt:
-      name='{{item}}' state=latest
-    with_items:
-      - python-pip
-      - python3-pip
-      - virtualenv
-      - virtualenvwrapper
-  - name: virtualenv config for bash-profile
-    blockinfile:
-      create: true
-      path: /home/ubuntu/.bash-profile
-      marker: "\" {mark} from playbook"
-      block:  "{{ lookup('file', '/vagrant/bash-profile') }}"
-  - name: python testing packages
-    pip:
-      name: "{{item}}"
-      executable: pip3
-    with_items:
-      - pytest
-      - ptvsd
-  - name: install sqlite
-    apt: name=sqlite3 state=latest
-  - name: docker dependencies
-    apt:
-      name='{{item}}' state=latest
-    with_items:
-      - apt-transport-https
-      - ca-certificates
-      - curl
-      - software-properties-common
-  - name: ensure repository key is installed
-    apt_key:
-      url: https://download.docker.com/linux/ubuntu/gpg
-  - name: ensure docker registry is available
-    apt_repository:
-      repo: "deb https://download.docker.com/linux/ubuntu xenial stable"
-      state:  present
-  - name: ensure docker and dependencies are installed
-    apt: name='docker-ce' update_cache=yes
-  - name: install postgres
+  - name: install various
     apt:
       name: "{{item}}"
       update_cache: yes
     with_items:
-      - postgresql
-      - postgresql-contrib
-  - name: install nginx
-    apt: name='nginx' update_cache=yes
-    
+      #- postgresql
+      #- postgresql-contrib
+      #- sqlite
+      - nginx
