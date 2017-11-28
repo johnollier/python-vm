@@ -26,6 +26,13 @@ Vagrant.configure("2") do |config|
       owner: "ubuntu",
       group: "ubuntu",
       mount_options: ["dmode=755,fmode=755"]
+	  
+  config.vm.synced_folder "C:/projects/git/workflow/apps", 
+	  "/home/ubuntu/apps",
+	  id: "apps",
+      owner: "ubuntu",
+      group: "ubuntu",
+      mount_options: ["dmode=755,fmode=755"]
 
   config.vm.provision "ansible_local" do |ansible|
     ansible.playbook = "provision.yml"
