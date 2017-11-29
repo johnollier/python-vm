@@ -22,7 +22,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.synced_folder "#{ENV['GITHUB']}/ansible-roles",
       "/home/ubuntu/ansible-roles",
-      id: "copy-ssh",
+      id: "ansible-roles",
       owner: "ubuntu",
       group: "ubuntu",
       mount_options: ["dmode=755,fmode=755"]
