@@ -13,28 +13,28 @@ Vagrant.configure("2") do |config|
   config.vm.network "forwarded_port", guest: 5678, host: 5678
   config.vm.network "forwarded_port", guest: 8080, host: 8081
 
-  config.vm.synced_folder "C:/Users/#{ENV['USERNAME']}/.ssh",
+  config.vm.synced_folder "#{ENV['HOME']}/.ssh",
       "/home/ubuntu/copy-ssh",
       id: "copy-ssh",
       owner: "ubuntu",
       group: "ubuntu",
       mount_options: ["dmode=700,fmode=600"]
 
-  config.vm.synced_folder "C:/Users/#{ENV['USERNAME']}/projects/ansible-roles",
-      "/home/ubuntu/.ansible/roles",
+  config.vm.synced_folder "#{ENV['GITHUB']}/ansible-roles",
+      "/home/ubuntu/ansible-roles",
       id: "copy-ssh",
       owner: "ubuntu",
       group: "ubuntu",
-      mount_options: ["dmode=700,fmode=600"]
+      mount_options: ["dmode=755,fmode=755"]
 
-  config.vm.synced_folder "C:/Users/#{ENV['USERNAME']}/projects/python-vm-projects",
+  config.vm.synced_folder "#{ENV['GITHUB']}/python-vm-projects",
       "/home/ubuntu/projects",
       id: "projects",
       owner: "ubuntu",
       group: "ubuntu",
       mount_options: ["dmode=755,fmode=755"]
-	  
-  config.vm.synced_folder "C:/projects/git/workflow/apps", 
+
+  config.vm.synced_folder "#{ENV['GITLAB']}/workflow/apps",
 	  "/home/ubuntu/apps",
 	  id: "apps",
       owner: "ubuntu",
