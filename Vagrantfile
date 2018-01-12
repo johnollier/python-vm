@@ -21,11 +21,11 @@ Vagrant.configure("2") do |config|
       mount_options: ["dmode=700,fmode=600"]
 
   config.vm.synced_folder "C:/Users/#{ENV['USERNAME']}/projects/ansible-roles",
-      "/home/ubuntu/.ansible/roles",
-      id: "copy-ssh",
+      "/home/ubuntu/ansible-roles",
+      id: "ansible-roles",
       owner: "ubuntu",
       group: "ubuntu",
-      mount_options: ["dmode=700,fmode=600"]
+      mount_options: ["dmode=777,fmode=777"]
 
   config.vm.synced_folder "C:/Users/#{ENV['USERNAME']}/projects/python-vm-projects",
       "/home/ubuntu/projects",
