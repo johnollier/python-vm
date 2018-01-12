@@ -10,7 +10,8 @@
       name: "{{item}}"
       update_cache: yes
     with_items:
-      #- postgresql
-      #- postgresql-contrib
+      - postgresql
+      - postgresql-contrib
       #- sqlite
       - nginx
+      - libpq-dev
