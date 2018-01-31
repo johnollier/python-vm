@@ -15,3 +15,5 @@
       #- sqlite
       - nginx
       - libpq-dev
+      - rabbitmq-server
+
