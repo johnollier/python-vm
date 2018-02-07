@@ -4,14 +4,16 @@
   roles:
     - vim
     - python
+    - tmux
   tasks:
   - name: install various
     apt:
       name: "{{item}}"
       update_cache: yes
     with_items:
+      - dos2unix
+      - libpq-dev
       - postgresql
       - postgresql-contrib
       #- sqlite
       - nginx
-      - libpq-dev

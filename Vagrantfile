@@ -1,7 +1,11 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 Vagrant.configure("2") do |config|
+  #config.vm.box = "hashicorp/precise64"
   config.vm.box = "ubuntu/xenial64"
+  #config.ssh.username = "vagrant"
+  #config.ssh.password = "vagrant"
+  #config.ssh.insert_key = false
 
   config.vm.provider "virtualbox" do |v|
 	  v.name = "python-vm"
@@ -9,34 +13,31 @@ Vagrant.configure("2") do |config|
 	  v.cpus = 2
   end
 
-  config.vm.network "forwarded_port", guest: 80, host: 7080
-  config.vm.network "forwarded_port", guest: 5000, host: 5000
-  config.vm.network "forwarded_port", guest: 5678, host: 5678
-  config.vm.network "forwarded_port", guest: 8080, host: 8081
+  #config.vm.network "forwarded_port", guest: 80, host: 7082
 
   config.vm.synced_folder "#{ENV['HOME']}/.ssh",
-      "/home/ubuntu/copy-ssh",
+      "/home/vagrant/copy-ssh",
       id: "copy-ssh",
       owner: "ubuntu",
       group: "ubuntu",
       mount_options: ["dmode=700,fmode=600"]
 
   config.vm.synced_folder "#{ENV['GITHUB']}/ansible-roles",
-      "/home/ubuntu/ansible-roles",
+      "/home/vagrant/ansible-roles",
       id: "ansible-roles",
       owner: "ubuntu",
       group: "ubuntu",
       mount_options: ["dmode=755,fmode=755"]
 
   config.vm.synced_folder "#{ENV['GITHUB']}/python-vm-projects",
-      "/home/ubuntu/projects",
+      "/home/vagrant/projects",
       id: "projects",
       owner: "ubuntu",
       group: "ubuntu",
       mount_options: ["dmode=755,fmode=755"]
 
   config.vm.synced_folder "#{ENV['GITLAB']}/workflow/apps",
-	  "/home/ubuntu/apps",
+	  "/home/vagrant/apps",
 	  id: "apps",
       owner: "ubuntu",
       group: "ubuntu",
