@@ -11,9 +11,19 @@
       name: "{{item}}"
       update_cache: yes
     with_items:
+<<<<<<< HEAD
       - dos2unix
       - libpq-dev
       - postgresql
       - postgresql-contrib
       #- sqlite
       - nginx
+=======
+            #- postgresql
+            #- postgresql-contrib
+      #- sqlite
+      - nginx
+        #- libpq-dev
+      - rabbitmq-server
+
+>>>>>>> f4c9924606fa079699cde44ac82bc9bb7d957d7f
