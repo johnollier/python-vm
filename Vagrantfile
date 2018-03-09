@@ -1,11 +1,7 @@
   # -*- mode: ruby -*-
 # vi: set ft=ruby :
 Vagrant.configure("2") do |config|
-  #config.vm.box = "hashicorp/precise64"
   config.vm.box = "ubuntu/xenial64"
-  #config.ssh.username = "vagrant"
-  #config.ssh.password = "vagrant"
-  #config.ssh.insert_key = false
 
   config.vm.provider "virtualbox" do |v|
 	  v.name = "python-vm"
@@ -13,9 +9,6 @@ Vagrant.configure("2") do |config|
 	  v.cpus = 2
   end
 
-<<<<<<< HEAD
-  #config.vm.network "forwarded_port", guest: 80, host: 7082
-=======
   config.vm.network "forwarded_port", guest: 80, host: 7080
   config.vm.network "forwarded_port", guest: 8100, host: 8100
   config.vm.network "forwarded_port", guest: 5670, host: 5670
@@ -27,7 +20,6 @@ Vagrant.configure("2") do |config|
   config.vm.network "forwarded_port", guest: 15673, host: 15673
   config.vm.network "forwarded_port", guest: 15674, host: 15674
   config.vm.network "forwarded_port", guest: 15675, host: 15675
->>>>>>> f4c9924606fa079699cde44ac82bc9bb7d957d7f
 
   config.vm.synced_folder "#{ENV['HOME']}/.ssh",
       "/home/vagrant/copy-ssh",
